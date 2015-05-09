@@ -11,6 +11,16 @@
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
 	}
+
+	if (isset($_POST["submit"])) {
+		$sql = "INSERT INTO topic (proposed_topic,reference_link,status,studentID,student_firstname,student_lastname) " .
+		"VALUES ('" . $_POST["topic"] . "','" . $_POST["link"] . "','pending','" . $_POST["username"] . "','" . $_POST["first_name"] .
+		"','" . $_POST["last_name"] . "');";
+			if ($conn->query($sql) === TRUE) {
+			} else {
+				echo "Error: " . $sql . "<br>" . $conn->error;
+			}
+	}
 ?>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -72,7 +82,22 @@
     <div class="jumbotron">
       <div class="container">
         <h1>Topics</h1>
-	<table class="table table-striped table-bordered"><?php
+	<form method="POST" id="topic_form" action="topics.php">
+		<input type="text" id="username" name="username" required placeholder="Username">
+		<input type="text" id="first_name" name="first_name" required placeholder="First Name">
+		<input type="text" id="last_name" name="last_name" required placeholder="Last Name">
+		<input type="text" id="topic" name="topic" required placeholder="Topic">
+		<input type="text" id="link" name="link" placeholder="Link">
+		<button type="submit" id="submit" name="submit">Submit</button>
+	</form><br/>
+	<table class="table table-striped table-bordered">
+		<tr>
+			<th>Topic</th>
+			<th>Link</th>
+			<th>Status</th>
+			<th>Username</th>
+			<th>Full Name</th>
+		</tr><?php
 	$sql = "SELECT * FROM topic";
 	$result = $conn->query($sql);
 
@@ -115,5 +140,6 @@
             r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
             ga('create','UA-XXXXX-X','auto');ga('send','pageview');
         </script>
-    </body>
-</html>
+    </body><?php>
+	$conn->close();
+?></html>
