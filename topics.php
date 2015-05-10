@@ -37,7 +37,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <style>
             body {
                 padding-top: 50px;
@@ -83,36 +83,42 @@
       <div class="container">
         <h1>Topics</h1>
 	<form method="POST" id="topic_form" action="topics.php">
-		<input type="text" id="username" name="username" required placeholder="Username">
+		<input type="text" id="username" name="username" required placeholder="RIT DCE">
 		<input type="text" id="first_name" name="first_name" required placeholder="First Name">
 		<input type="text" id="last_name" name="last_name" required placeholder="Last Name">
-		<input type="text" id="topic" name="topic" required placeholder="Topic">
-		<input type="text" id="link" name="link" placeholder="Link">
+		<input type="text" id="topic" name="topic" required placeholder="Topic Name">
+		<input type="text" id="link" name="link" placeholder="Topic Link (optional)">
 		<button type="submit" id="submit" name="submit">Submit</button>
 	</form><br/>
-	<table class="table table-striped table-bordered">
+	<table id="topics" class="table table-striped table-bordered">
+		<thead>
 		<tr>
+			<th>DCE RIT</th>
+			<th>First Name</th>
+			<th>Last Name</th>
 			<th>Topic</th>
-			<th>Link</th>
 			<th>Status</th>
-			<th>Username</th>
-			<th>Full Name</th>
-		</tr><?php
-	$sql = "SELECT * FROM topic";
+			<th>Project 1 URL</th>
+		</tr>
+		</thead>
+		<tbody><?php
+	$sql = "SELECT studentID, student_firstname, student_lastname, proposed_topic, status FROM topic";
 	$result = $conn->query($sql);
 
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
 		?><tr>
-			<td><?= $row["proposed_topic"]?></td>
-			<td><?= $row["reference_link"]?></td>
-			<td><?= $row["status"]?></td>
 			<td><?= $row["studentID"]?></td>
-			<td><?= $row["student_firstname"] . $row["student_lastname"]?></td>
+			<td><?= $row["student_firstname"]?></td>
+			<td><?= $row["student_lastname"]?></td>
+			<td><?= $row["proposed_topic"]?></td>
+			<td><?= $row["status"]?></td>
+			<td>kelvin.ist.rit.edu/~<?= $row["studentID"]?>/</td>
 		</tr><?php
 		}
 	}
-	?></table>
+		?></tbody>
+	</table>
       </div>
     </div>
 
@@ -124,12 +130,15 @@
       <footer>
         <p>&copy; Company 2015</p>
       </footer>
-    </div> <!-- /container -->        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    </div> <!-- /container -->        
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
 
-        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
         <script src="js/main.js"></script>
+	<link rel="stylesheet" href="//cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+	<script type="text/javascript" src="//cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
@@ -140,6 +149,11 @@
             r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
             ga('create','UA-XXXXX-X','auto');ga('send','pageview');
         </script>
+	<script>
+		$(document).ready(function() {
+			$("#topics").dataTable();
+		});
+	</script>
     </body><?php>
 	$conn->close();
 ?></html>
