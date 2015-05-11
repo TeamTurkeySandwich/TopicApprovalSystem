@@ -23,11 +23,16 @@
 			if (substr($key, 0, 3) == "cb_") {
 				$topic = substr($key, 3);
 				$comment = $_POST["cm_" . $topic];
+				$email_to = $_POST["hd_" . $topic];
+				$subject = "Topic Approval System";
+				$email_from = "rmkics@rit.edu";
 				$topic = str_replace("_", " ", substr($key, 3));
-				$sql = "UPDATE topic SET status = '" .
-				$status . "' WHERE proposed_topic = '" .
-				$topic . "';";
+				$sql = "UPDATE topic SET status = '" . $status . "'" .
+				" WHERE proposed_topic = '" . $topic . "';";
+
 				if ($conn->query($sql) === TRUE) {
+					$body = "Your topic has been $status with reason $comment.";
+					mail($email_to, $subject, $body, "From: <$email_from>");
 				} else {
 					echo "Failure<br/>";
 					echo $sql;
@@ -127,6 +132,7 @@
 			<td><?= $row["reference_link"]?></td>
 			<td><?= $row["time_submitted"]?></td>
 			<td><input type="text" id="cm_<?= $row["proposed_topic"]?>" name="cm_<?= $row["proposed_topic"]?>"></td>
+			<input type="hidden" id="hd_<?= $row["proposed_topic"]?>" name="hd_<?= $row["proposed_topic"]?>" value="<?= $row["studentID"]?>@g.rit.edu">
 		</tr><?php
 		}
 	}
