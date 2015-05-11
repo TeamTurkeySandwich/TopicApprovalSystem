@@ -11,16 +11,6 @@
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
 	}
-
-	if (isset($_POST["submit"])) {
-		$sql = "INSERT INTO topic (proposed_topic,reference_link,status,studentID,student_firstname,student_lastname) " .
-		"VALUES ('" . $_POST["topic"] . "','" . $_POST["link"] . "','pending','" . $_POST["username"] . "','" . $_POST["first_name"] .
-		"','" . $_POST["last_name"] . "');";
-			if ($conn->query($sql) === TRUE) {
-			} else {
-				echo $conn->errno . ":" . $conn->error;
-			}
-	}
 ?>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -54,7 +44,7 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-    <nav class="navbar navbar-rit navbar-fixed-top">
+<nav class="navbar navbar-rit navbar-fixed-top">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -69,15 +59,29 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav navbar-nav2 navbar-right">
         <li><a href="#">Assignment Information</a></li>
 	<li><a href="#">Topics</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
-</nav>
+</nav><?php
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
+	// CHECK IF THE FORM HAS BEEN SUBMITTED
+	if (isset($_POST["submit"])) {
+		$sql = "INSERT INTO topic (proposed_topic,reference_link,status,studentID,student_firstname,student_lastname) " .
+		"VALUES ('" . $_POST["topic"] . "','" . $_POST["link"] . "','pending','" . $_POST["username"] . "','" . $_POST["first_name"] .
+		"','" . $_POST["last_name"] . "');";
+		
+		// RUN THE INSERTION QUERY
+		if ($conn->query($sql) !== TRUE) {
+			// THE MYSQL ERROR NUMBER 1062 TRANSLATES TO DUPLICATE ENTRY
+			if ($conn->errno == 1062) {
+				?><label id="error">Topic is a duplicate. Please email professor if you think there is an error or find a new topic.</label><?
+			}
+		}
+	}
+    ?><!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
         <h1>Topics</h1>
