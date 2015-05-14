@@ -4,7 +4,17 @@
    Author's custom styles
    ========================================================================== */
 
+body{
+font-family:'Lato';
+}
 
+.container{
+margin-top: 3%;
+}
+
+a {
+margin: 5px;
+}
 
 
 

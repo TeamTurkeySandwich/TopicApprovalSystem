@@ -1,0 +1,5 @@
+AuthUserFile /home/turkeysandwich/passwords/.htpasswd
+AuthName "Authorized Professor Only"
+AuthType Basic
+ErrorDocument 401 //kelvin.ist.rit.edu/~turkeysandwich/401.html
+Require valid-user

@@ -28,6 +28,7 @@
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
         <style>
             body {
                 padding-top: 50px;
@@ -61,7 +62,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-nav2 navbar-right">
         <li><a href="#">Assignment Information</a></li>
-	<li><a href="#">Topics</a></li>
+	<li><a class="navbar-active" href="topics.php">Topics</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

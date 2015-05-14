@@ -3,7 +3,7 @@
  * Copyright 2011-2014 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-
+ 
 .btn-default,
 .btn-primary,
 .btn-success,
@@ -102,7 +102,18 @@
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
   background-repeat: repeat-x;
   border-color: #3e8f3e;
+
 }
+
+.btn-rit {
+  background-color: #FFA500;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffDB944D', endColorstr='#ff000001', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  background-repeat: repeat-x;
+  border-color: #3e8f3e;
+  color: #000000;  
+}
+
 .btn-success:hover,
 .btn-success:focus {
   background-color: #419641;
@@ -244,17 +255,54 @@
 }
 .navbar-brand,
 .navbar-nav > li > a {
-  text-shadow: 0 1px 0 rgba(255, 255, 255, .25);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .01);
+  text-transform: uppercase;
+  font-weight: bold; 
+  margin: 5px;
+  padding-bottom: 5px;
 }
+
+.navbar-nav a:hover {
+/*color:#fff;*/
+border-bottom: 10px solid #E44D26;
+}
+
+.navbar-active{
+border-bottom: 10px solid #E44D26;
+}
+
+.navbar-nav2 a{
+color:#fff;
+}
+
+.navbar-brand{
+  color:#fffffe;
+  min-height: 120px;
+  min-width: auto; 
+}
+
+.navbar .brand { 
+    min-height: 100px;
+    min-width: 100px; 
+    overflow: visible;
+    padding-top: 0;
+    padding-bottom: 0; 
+}
+
 .navbar-inverse {
-  background-image: -webkit-linear-gradient(top, #3c3c3c 0%, #222 100%);
-  background-image:      -o-linear-gradient(top, #3c3c3c 0%, #222 100%);
+  background-image: -webkit-linear-gradient(top, #CC6600 0%, #222 100%);
+  background-image:      -o-linear-gradient(top, #CC6600 0%, #222 100%);
   background-image: -webkit-gradient(linear, left top, left bottom, from(#3c3c3c), to(#222));
-  background-image:         linear-gradient(to bottom, #3c3c3c 0%, #222 100%);
+  background-image:         linear-gradient(to bottom, #CC6600 0%, #222 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3c3c3c', endColorstr='#ff222222', GradientType=0);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
   background-repeat: repeat-x;
 }
+
+.navbar-rit {
+  background-color:#F16529;
+}
+
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .active > a {
   background-image: -webkit-linear-gradient(top, #080808 0%, #0f0f0f 100%);
@@ -275,11 +323,16 @@
 .navbar-fixed-bottom {
   border-radius: 0;
 }
+
+.navbar-fixed-top{
+border-bottom: 15px solid #E44D26;
+}
+
 @media (max-width: 767px) {
   .navbar .navbar-nav .open .dropdown-menu > .active > a,
   .navbar .navbar-nav .open .dropdown-menu > .active > a:hover,
   .navbar .navbar-nav .open .dropdown-menu > .active > a:focus {
-    color: #fff;
+    /*color: #fff;*/
     background-image: -webkit-linear-gradient(top, #337ab7 0%, #2e6da4 100%);
     background-image:      -o-linear-gradient(top, #337ab7 0%, #2e6da4 100%);
     background-image: -webkit-gradient(linear, left top, left bottom, from(#337ab7), to(#2e6da4));
