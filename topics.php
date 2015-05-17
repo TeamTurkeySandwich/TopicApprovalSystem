@@ -72,9 +72,15 @@
       <div class="container"><br/><?php
 	// CHECK IF THE FORM HAS BEEN SUBMITTED
 	if (isset($_POST["submit"])) {
+		// STOP SQL INJECTION
+		$topic = mysql_real_escape_string($_POST["topic"]);
+		$link = mysql_real_escape_string($_POST["link"]);
+		$username = mysql_real_escape_string($_POST["username"]);
+		$firstName = mysql_real_escape_string($_POST["first_name"]);
+		$lastName = mysql_real_escape_string($_POST["last_name"]);
 		$sql = "INSERT INTO topic (proposed_topic,reference_link,status,studentID,student_firstname,student_lastname) " .
-		"VALUES ('" . $_POST["topic"] . "','" . $_POST["link"] . "','pending','" . $_POST["username"] . "','" . $_POST["first_name"] .
-		"','" . $_POST["last_name"] . "');";
+		"VALUES ('" . $topic . "','" . $link . "','pending','" . $username . "','" . $firstName .
+		"','" . $lastName . "');";
 		
 		// RUN THE INSERTION QUERY AND CHECK FOR ERRORS
 		if ($conn->query($sql) !== TRUE) {
