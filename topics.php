@@ -66,26 +66,25 @@
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
-</nav><?php
-
+</nav>
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container"><br/><?php
 	// CHECK IF THE FORM HAS BEEN SUBMITTED
 	if (isset($_POST["submit"])) {
 		$sql = "INSERT INTO topic (proposed_topic,reference_link,status,studentID,student_firstname,student_lastname) " .
 		"VALUES ('" . $_POST["topic"] . "','" . $_POST["link"] . "','pending','" . $_POST["username"] . "','" . $_POST["first_name"] .
 		"','" . $_POST["last_name"] . "');";
 		
-		// RUN THE INSERTION QUERY
+		// RUN THE INSERTION QUERY AND CHECK FOR ERRORS
 		if ($conn->query($sql) !== TRUE) {
 			// THE MYSQL ERROR NUMBER 1062 TRANSLATES TO DUPLICATE ENTRY
 			if ($conn->errno == 1062) {
-				?><label id="error">Topic is a duplicate. Please email professor if you think there is an error or find a new topic.</label><?
+				?><label id="error">Topic is a duplicate. Please email professor if you think there is an error or find a new topic.</label><?php
 			}
 		}
 	}
-    ?><!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
-        <h1>Topics</h1>
+        ?><h1>Topics</h1>
 	<form method="POST" id="topic_form" action="topics.php">
 		<input type="text" id="username" name="username" required placeholder="RIT DCE">
 		<input type="text" id="first_name" name="first_name" required placeholder="First Name">
