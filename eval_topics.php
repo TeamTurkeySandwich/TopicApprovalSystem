@@ -13,20 +13,20 @@
 	}
 
 	if (isset($_POST["approve"])) {
-		$status = "approve";
+		$status = "approved";
 	} else {
-		$status = "deny";
+		$status = "denied";
 	}
 
-	if ($status == "approve" || $status == "deny") {
+	if ($status == "approved" || $status == "denied") {
 		foreach ($_POST as $key => $val) {
 			if (substr($key, 0, 3) == "cb_") {
-				$topic = substr($key, 3);
-				$comment = $_POST["cm_" . $topic];
-				$email_to = $_POST["hd_" . $topic];
+				$id = substr($key, 3);
+				$topic = $_POST["tp_" . $id];
+				$comment = $_POST["cm_" . $id];
+				$email_to = $_POST["em_" . $id];
 				$subject = "Topic Approval System";
 				$email_from = "rmkics@rit.edu";
-				$topic = str_replace("_", " ", substr($key, 3));
 				$sql = "UPDATE topic SET status = '" . $status . "'" .
 				" WHERE proposed_topic = '" . $topic . "';";
 
@@ -120,9 +120,10 @@
 	$result = $conn->query($sql);
 
 	if ($result->num_rows > 0) {
+		$id = 1;
 		while ($row = $result->fetch_assoc()) {
 		?><tr>
-			<td><input type="checkbox" id="cb_<?= $row["proposed_topic"]?>" name="cb_<?= $row["proposed_topic"]?>"></td>
+			<td><input type="checkbox" id="cb_<?= $id ?>" name="cb_<?= $id ?>"></td>
 			<td><?= $row["studentID"]?></td>
 			<td><?= $row["studentID"]?>@g.rit.edu</td>
 			<td><?= $row["student_firstname"]?></td>
@@ -130,10 +131,16 @@
 			<td><?= $row["proposed_topic"]?></td>
 			<td><?= $row["reference_link"]?></td>
 			<td><?= $row["time_submitted"]?></td>
-			<td><input type="text" id="cm_<?= $row["proposed_topic"]?>" name="cm_<?= $row["proposed_topic"]?>"></td>
-			<input type="hidden" id="hd_<?= $row["proposed_topic"]?>" name="hd_<?= $row["proposed_topic"]?>" value="<?= $row["studentID"]?>@g.rit.edu">
+			<td><input type="text" id="cm_<?= $id ?>" name="cm_<?= $id ?>"></td>
+			<input type="hidden" id="tp_<?= $id ?>" name="tp_<?= $id ?>" value="<?= $row["proposed_topic"] ?>">
+			<input type="hidden" id="em_<?= $id ?>" name="em_<?= $id ?>" value="<?= $row["studentID"]?>@g.rit.edu">
 		</tr><?php
+			$id = $id + 1;
 		}
+	} else {
+		?><tr>
+			<td colspan="9" style="text-align:center">No pending topics found.</td>
+		</tr><?php
 	}
 		?></tbody>
 	</table>
